@@ -1,0 +1,1790 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Signal · Issue 002</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #0d0d0d;
+        --white: #ffffff;
+        --paper: #f8f7f4;
+        --paper-dark: #f0eeea;
+        --red: rgb(255, 51, 51);
+        --gray-dark: #333;
+        --gray-mid: #666;
+        --gray-light: #999;
+        --rule: #0d0d0d;
+        --rule-light: #ccc;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "Source Serif 4", Georgia, serif;
+        background: var(--paper);
+        color: var(--black);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ========================================
+           NEWSPAPER CONTAINER
+           ======================================== */
+
+      .newspaper {
+        max-width: 1400px;
+        margin: 0 auto;
+        background: var(--white);
+        box-shadow: 0 0 60px rgba(0, 0, 0, 0.08);
+      }
+
+      .page {
+        padding: 40px 60px;
+        border-bottom: 1px solid var(--rule-light);
+      }
+
+      .page:last-child {
+        border-bottom: none;
+      }
+
+      /* ========================================
+           MASTHEAD - ISSUE 002 VARIANT
+           ======================================== */
+
+      .masthead {
+        text-align: center;
+        padding: 25px 60px 20px;
+        border-bottom: 1px solid var(--black);
+        position: relative;
+      }
+
+      .masthead::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 60px;
+        right: 60px;
+        height: 1px;
+        background: var(--black);
+      }
+
+      .masthead-top {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        color: var(--gray-mid);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+
+      .masthead-top .divider {
+        width: 4px;
+        height: 4px;
+        background: var(--red);
+        transform: rotate(45deg);
+      }
+
+      .masthead-logo {
+        font-family: "Syncopate", sans-serif;
+        font-weight: 700;
+        font-size: 4rem;
+        letter-spacing: 0.12em;
+        color: var(--black);
+        line-height: 1;
+      }
+
+      .masthead-logo .underscore {
+        color: var(--red);
+      }
+
+      .masthead-tagline {
+        font-family: "Source Serif 4", serif;
+        font-style: italic;
+        font-size: 0.95rem;
+        color: var(--gray-mid);
+        margin-top: 8px;
+        letter-spacing: 0.02em;
+      }
+
+      .masthead-archive {
+        margin-top: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gray-light);
+      }
+
+      .masthead-archive label {
+        color: var(--gray-mid);
+      }
+
+      .masthead-archive select {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--gray-dark);
+        background: var(--paper);
+        border: 1px solid var(--rule-light);
+        padding: 3px 8px;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+      }
+
+      .masthead-archive select:hover {
+        border-color: var(--black);
+      }
+
+      /* ========================================
+           TYPOGRAPHY
+           ======================================== */
+
+      .headline-link {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .headline-link:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      .headline-banner {
+        font-family: "Playfair Display", serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .headline-hero {
+        font-family: "Playfair Display", serif;
+        font-size: 2.8rem;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin-bottom: 15px;
+      }
+
+      .headline-major {
+        font-family: "Playfair Display", serif;
+        font-size: 1.9rem;
+        font-weight: 700;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+        margin-bottom: 12px;
+      }
+
+      .headline-minor {
+        font-family: "Playfair Display", serif;
+        font-size: 1.35rem;
+        font-weight: 600;
+        line-height: 1.2;
+        margin-bottom: 10px;
+      }
+
+      .headline-small {
+        font-family: "Playfair Display", serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        line-height: 1.25;
+        margin-bottom: 8px;
+      }
+
+      .subhead {
+        font-family: "Source Serif 4", serif;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--gray-dark);
+        line-height: 1.4;
+        margin-bottom: 15px;
+      }
+
+      .subhead-center {
+        text-align: center;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .body-text {
+        font-size: 1rem;
+        line-height: 1.7;
+        text-align: justify;
+        hyphens: auto;
+      }
+
+      .body-text p {
+        margin-bottom: 1em;
+      }
+
+      .body-text p:last-child {
+        margin-bottom: 0;
+      }
+
+      .estimate {
+        font-weight: 600;
+      }
+
+      .section-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 8px;
+      }
+
+      .section-header {
+        font-family: "Syncopate", sans-serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--black);
+        text-align: center;
+        padding: 12px 0;
+        border-top: 2px solid var(--black);
+        border-bottom: 1px solid var(--black);
+        margin-bottom: 30px;
+      }
+
+      .drop-cap {
+        float: left;
+        font-family: "Playfair Display", serif;
+        font-size: 4.5rem;
+        font-weight: 700;
+        line-height: 0.8;
+        padding-right: 10px;
+        padding-top: 5px;
+        color: var(--black);
+      }
+
+      .drop-cap-red {
+        color: var(--red);
+      }
+
+      /* ========================================
+           FRONT PAGE - CENTERED LEAD
+           ======================================== */
+
+      .front-page-banner {
+        text-align: center;
+        padding-bottom: 30px;
+        border-bottom: 1px solid var(--rule-light);
+        margin-bottom: 30px;
+      }
+
+      .front-page-grid {
+        display: grid;
+        grid-template-columns: 1fr 1px 2fr 1px 1fr;
+        gap: 0;
+      }
+
+      .column-rule {
+        background: var(--rule-light);
+        margin: 0 20px;
+      }
+
+      .side-col {
+        padding: 0 5px;
+      }
+
+      .center-col {
+        padding: 0 15px;
+      }
+
+      .side-story {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid var(--rule-light);
+      }
+
+      .side-story:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      /* ========================================
+           TWO AND THREE COLUMN LAYOUTS
+           ======================================== */
+
+      .two-column {
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr;
+        gap: 0;
+      }
+
+      .three-column {
+        display: grid;
+        grid-template-columns: 1fr 1px 1fr 1px 1fr;
+        gap: 0;
+      }
+
+      .col {
+        padding: 0 25px;
+      }
+
+      .col:first-child {
+        padding-left: 0;
+      }
+
+      .col:last-child {
+        padding-right: 0;
+      }
+
+      /* ========================================
+           IMAGE PLACEHOLDERS
+           ======================================== */
+
+      .image-placeholder {
+        background: var(--paper-dark);
+        border: 1px dashed var(--rule-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--gray-light);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        text-align: center;
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      .image-placeholder.banner {
+        height: 220px;
+        margin: 25px auto;
+        max-width: 700px;
+      }
+
+      .image-placeholder.hero {
+        height: 260px;
+        margin: 20px 0;
+      }
+
+      .image-placeholder.sidebar {
+        height: 140px;
+        margin: 12px 0;
+      }
+
+      .image-placeholder.inline {
+        height: 180px;
+      }
+
+      .image-placeholder.chart {
+        height: 220px;
+        background: var(--white);
+        border: 1px solid var(--rule-light);
+      }
+
+      .image-placeholder.wide {
+        height: 200px;
+      }
+
+      .article-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 20px 0;
+      }
+
+      .article-image.banner {
+        margin: 25px auto;
+        max-width: 700px;
+      }
+
+      .article-image.sidebar {
+        margin: 12px 0;
+      }
+
+      .article-image.chart {
+        border: 1px solid var(--rule-light);
+      }
+
+      /* ========================================
+           CALLOUT BOXES
+           ======================================== */
+
+      .what-to-watch {
+        background: var(--paper);
+        border-left: 3px solid var(--red);
+        padding: 15px 20px;
+        margin: 20px 0;
+      }
+
+      .what-to-watch-title {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--red);
+        margin-bottom: 8px;
+      }
+
+      .what-to-watch p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      .pull-quote {
+        border-top: 2px solid var(--black);
+        border-bottom: 2px solid var(--black);
+        padding: 20px 0;
+        margin: 25px 0;
+      }
+
+      .pull-quote p {
+        font-family: "Playfair Display", serif;
+        font-size: 1.25rem;
+        font-style: italic;
+        line-height: 1.4;
+        text-align: center;
+      }
+
+      .pull-quote .attribution {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        font-style: normal;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--gray-mid);
+        margin-top: 10px;
+        display: block;
+      }
+
+      /* Big number callout */
+      .big-number {
+        text-align: center;
+        padding: 25px 15px;
+        background: var(--black);
+        color: var(--white);
+        margin: 20px 0;
+      }
+
+      .big-number-value {
+        font-family: "Playfair Display", serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--red);
+      }
+
+      .big-number-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-top: 8px;
+        color: var(--gray-light);
+      }
+
+      .big-number-context {
+        font-family: "Source Serif 4", serif;
+        font-size: 0.9rem;
+        margin-top: 10px;
+        color: var(--white);
+      }
+
+      /* ========================================
+           SECTION BREAKS
+           ======================================== */
+
+      .section-break {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin: 35px 0;
+      }
+
+      .section-break::before,
+      .section-break::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--black);
+      }
+
+      .section-break .diamond {
+        width: 8px;
+        height: 8px;
+        background: var(--red);
+        transform: rotate(45deg);
+      }
+
+      .section-break-light {
+        height: 1px;
+        background: var(--rule-light);
+        margin: 30px 0;
+      }
+
+      /* ========================================
+           SPORTS SECTION STYLING
+           ======================================== */
+
+      .sports-header {
+        background: var(--black);
+        color: var(--white);
+        padding: 8px 20px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .sports-header-title {
+        font-family: "Syncopate", sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+      }
+
+      .sports-header-line {
+        flex: 1;
+        height: 1px;
+        background: var(--gray-mid);
+      }
+
+      /* ========================================
+           DIVERGENCE INFOGRAPHIC - VARIANT
+           ======================================== */
+
+      .divergence-section {
+        background: var(--black);
+        color: var(--white);
+        padding: 50px 60px;
+      }
+
+      .divergence-title {
+        font-family: "Syncopate", sans-serif;
+        font-weight: 700;
+        font-size: 1.6rem;
+        letter-spacing: 0.1em;
+        text-align: center;
+        margin-bottom: 8px;
+      }
+
+      .divergence-subtitle {
+        font-family: "Source Serif 4", serif;
+        font-style: italic;
+        font-size: 1rem;
+        text-align: center;
+        color: var(--gray-light);
+        margin-bottom: 40px;
+      }
+
+      .divergence-list {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .divergence-row {
+        display: grid;
+        grid-template-columns: 2fr 80px 80px 100px;
+        gap: 20px;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .divergence-row:last-child {
+        border-bottom: none;
+      }
+
+      .divergence-row.header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+      }
+
+      .divergence-row.header span {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gray-light);
+      }
+
+      .divergence-question {
+        font-family: "Source Serif 4", serif;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .divergence-perspectives {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .divergence-polymarket {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-align: center;
+        color: var(--gray-light);
+      }
+
+      .divergence-gap-cell {
+        text-align: right;
+      }
+
+      .divergence-gap {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+        font-weight: 500;
+        padding: 4px 10px;
+        display: inline-block;
+      }
+
+      .divergence-gap.positive {
+        background: rgba(255, 51, 51, 0.2);
+        color: var(--red);
+      }
+
+      .divergence-gap.negative {
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--gray-light);
+      }
+
+      .divergence-gap.large {
+        background: var(--red);
+        color: var(--white);
+      }
+
+      /* ========================================
+           FOOTER
+           ======================================== */
+
+      .footer {
+        background: var(--black);
+        color: var(--white);
+        padding: 30px 60px;
+        text-align: center;
+      }
+
+      .footer-logo {
+        font-family: "Syncopate", sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 0.15em;
+        margin-bottom: 15px;
+      }
+
+      .footer-logo .underscore {
+        color: var(--red);
+      }
+
+      .footer-text {
+        font-size: 0.85rem;
+        color: var(--gray-light);
+        line-height: 1.7;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .footer-text a {
+        color: var(--white);
+        text-decoration: none;
+        border-bottom: 1px solid var(--red);
+      }
+
+      /* ========================================
+           RESPONSIVE
+           ======================================== */
+
+      @media (max-width: 1100px) {
+        .front-page-grid {
+          grid-template-columns: 1fr 1px 1.5fr;
+        }
+
+        .front-page-grid .side-col:last-child,
+        .front-page-grid .column-rule:last-child {
+          display: none;
+        }
+
+        .three-column {
+          grid-template-columns: 1fr 1px 1fr;
+        }
+
+        .three-column .col:nth-child(5) {
+          grid-column: 1 / -1;
+          padding: 25px 0 0 0;
+          margin-top: 25px;
+          border-top: 1px solid var(--rule-light);
+        }
+
+        .three-column .column-rule:nth-child(4) {
+          display: none;
+        }
+
+        .divergence-row {
+          grid-template-columns: 1.5fr 70px 70px 90px;
+          gap: 15px;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .page {
+          padding: 30px 40px;
+        }
+
+        .masthead {
+          padding: 20px 40px;
+        }
+
+        .masthead::after {
+          left: 40px;
+          right: 40px;
+        }
+
+        .masthead-logo {
+          font-size: 2.8rem;
+        }
+
+        .front-page-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .column-rule {
+          display: none;
+        }
+
+        .side-col,
+        .center-col {
+          padding: 0;
+        }
+
+        .center-col {
+          order: -1;
+          padding-bottom: 25px;
+          margin-bottom: 25px;
+          border-bottom: 1px solid var(--rule-light);
+        }
+
+        .two-column,
+        .three-column {
+          grid-template-columns: 1fr;
+        }
+
+        .two-column .column-rule,
+        .three-column .column-rule {
+          display: none;
+        }
+
+        .col {
+          padding: 0;
+          padding-bottom: 25px;
+          margin-bottom: 25px;
+          border-bottom: 1px solid var(--rule-light);
+        }
+
+        .col:last-child {
+          border-bottom: none;
+          margin-bottom: 0;
+          padding-bottom: 0;
+        }
+
+        .headline-banner {
+          font-size: 2.2rem;
+        }
+
+        .headline-hero {
+          font-size: 2rem;
+        }
+
+        .headline-major {
+          font-size: 1.5rem;
+        }
+
+        .divergence-section {
+          padding: 40px;
+        }
+
+        .divergence-row {
+          grid-template-columns: 1fr;
+          gap: 8px;
+          text-align: center;
+          padding: 20px 0;
+        }
+
+        .divergence-row.header {
+          display: none;
+        }
+
+        .divergence-gap-cell {
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .page {
+          padding: 25px 20px;
+        }
+
+        .masthead {
+          padding: 15px 20px;
+        }
+
+        .masthead::after {
+          left: 20px;
+          right: 20px;
+        }
+
+        .masthead-top {
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        .masthead-top .divider {
+          display: none;
+        }
+
+        .masthead-logo {
+          font-size: 1.6rem;
+        }
+
+        .headline-banner {
+          font-size: 1.7rem;
+        }
+
+        .headline-hero {
+          font-size: 1.6rem;
+        }
+
+        .headline-major {
+          font-size: 1.3rem;
+        }
+
+        .drop-cap {
+          font-size: 3.2rem;
+        }
+
+        .divergence-section {
+          padding: 30px 20px;
+        }
+
+        .footer {
+          padding: 25px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="newspaper">
+      <!-- MASTHEAD -->
+      <header class="masthead">
+        <div class="masthead-top">
+          <span>Issue 002</span>
+          <div class="divider"></div>
+          <span>Sunday 5 April 2026</span>
+          <div class="divider"></div>
+          <span>Powered by Perspectives</span>
+        </div>
+        <div class="masthead-logo">
+          THE SIGNAL<span class="underscore">_</span>
+        </div>
+        <div class="masthead-tagline">
+          Probabilistic analysis. Market comparison. What it means.
+        </div>
+        <div class="masthead-archive">
+          <label for="archive-select">Archived Issues</label>
+          <select
+            id="archive-select"
+            onchange="if(this.value) window.location.href=this.value; this.value='';"
+          >
+            <option value="">Select issue&hellip;</option>
+            <option value="../issue-1">Issue 001 &mdash; 2nd April 2026</option>
+          </select>
+        </div>
+      </header>
+
+      <!-- FRONT PAGE -->
+      <section class="page">
+        <!-- BANNER HEADLINE -->
+        <div class="front-page-banner">
+          <div class="section-label">Geopolitics</div>
+          <h1 class="headline-banner"><a href="https://getperspectives.app/app/debate-15a6f72c-4d3a-4d9b-8ae0-19a164652fd3" class="headline-link">US-Iran Ceasefire: The Clock Runs Out</a></h1>
+          <p class="subhead subhead-center">
+            <strong>Our estimate: 17%.</strong> Polymarket prices a ceasefire by
+            April 30th at 18%. The alignment is unusual for a question this
+            volatile, and it reflects a shared reading of the diplomatic
+            situation: talks have stalled, military momentum continues, and the
+            25-day window is simply too short to bridge the gap between "48-hour
+            humanitarian pause" and "permanent ceasefire."
+          </p>
+          <img
+            src="us-iran-ceasefire.png"
+            alt="US-Iran ceasefire diplomatic imagery"
+            class="article-image banner"
+          />
+        </div>
+
+        <!-- THREE COLUMN FRONT -->
+        <div class="front-page-grid">
+          <!-- LEFT SIDEBAR -->
+          <div class="side-col">
+            <article class="side-story">
+              <div class="section-label">Risk Assessment</div>
+              <h3 class="headline-minor">
+                <a href="https://getperspectives.app/app/debate-623a0d2e-d574-4793-8a49-8c8baadd50c9" class="headline-link">Natural Disaster: When the Market Misprices the Inevitable</a>
+              </h3>
+              <p class="subhead">
+                <strong>Our estimate: 86%.</strong> Polymarket prices at least
+                one major natural disaster in 2026 at 30%.
+              </p>
+
+              <div class="big-number">
+                <div class="big-number-value">+56</div>
+                <div class="big-number-label">Point Divergence</div>
+                <div class="big-number-context">Our largest gap this issue</div>
+              </div>
+
+              <div class="body-text">
+                <p>
+                  The reasoning is straightforward. Atlantic hurricanes, major
+                  earthquakes, and billion-dollar weather events occur with high
+                  annual regularity. NOAA data shows that the United States
+                  alone has averaged over 20 billion-dollar disasters annually
+                  since 2020.
+                </p>
+              </div>
+            </article>
+
+            <article class="side-story">
+              <div class="section-label">Novelty</div>
+              <h3 class="headline-small"><a href="https://getperspectives.app/app/debate-14250971-9dce-4eaf-8fe1-d24a753a30c0" class="headline-link">Aliens: The Forever Question</a></h3>
+              <p class="subhead">
+                <strong>Our estimate: 6%.</strong> Polymarket: 18%.
+              </p>
+              <div class="body-text">
+                <p>
+                  The government has maintained ambiguity on UAPs for eight
+                  decades. The Systems Thinker was blunt: "Confirmation would
+                  require irrefutable physical evidence reaching public
+                  awareness through channels the government cannot control."
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="column-rule"></div>
+
+          <!-- CENTER LEAD -->
+          <article class="center-col">
+            <div class="body-text">
+              <p>
+                <span class="drop-cap drop-cap-red">T</span>he structural
+                barriers are formidable. Iran rejected the US ceasefire proposal
+                on April 2nd, demanding a permanent end to hostilities rather
+                than a temporary pause. A downed US aircraft and a missing pilot
+                have hardened domestic political constraints for the Trump
+                administration, making concessions that could be framed as
+                weakness nearly impossible. The Systems Thinker put it plainly:
+                "This conflict is locked in an escalation plateau with no
+                immediate path to de-escalation. The reinforcing loops favour
+                continued conflict." Regional mediators, including Oman and
+                Qatar, have already failed to broker a deal, and no credible
+                alternative channel has emerged.
+              </p>
+
+              <p>
+                The Contrarian offered the most optimistic read at 35%, arguing
+                that Trump's deal-making instincts and Iran's regime survival
+                calculus could produce a last-minute agreement, possibly framed
+                as a humanitarian pause rather than a formal ceasefire. The Risk
+                Analyst was unmoved: "The gap between their positions has
+                widened, not narrowed. Iran sees capitulation in any temporary
+                measure, and Trump sees weakness in any permanent commitment.
+                Those incentives don't align in 25 days."
+              </p>
+            </div>
+
+            <div class="what-to-watch">
+              <div class="what-to-watch-title">What Would Change This</div>
+              <p>
+                A breakthrough would require either a dramatic shift in
+                battlefield dynamics, such as an Iranian calculation that
+                continued fighting is unsustainable, or external pressure
+                significant enough to force both parties to the table. The
+                Insider noted that no such pressure is visible: "The regional
+                mediators have exhausted their leverage. If Oman couldn't close
+                this deal last month, they're not closing it this month."
+                Economic shocks, particularly a major Strait of Hormuz
+                disruption, could trigger urgent international intervention, but
+                those remain tail scenarios.
+              </p>
+            </div>
+          </article>
+
+          <div class="column-rule"></div>
+
+          <!-- RIGHT SIDEBAR -->
+          <div class="side-col">
+            <article class="side-story">
+              <div class="section-label">Nobel Prize</div>
+              <h3 class="headline-minor">
+                <a href="https://getperspectives.app/app/debate-94f8a638-335c-4011-b5f7-6ec727e9a158" class="headline-link">Peace Prize: Institutions Over Individuals</a>
+              </h3>
+              <p class="subhead">
+                <strong>Our estimate: ICJ 16%, UNRWA 15%, Al Thani 8%.</strong>
+              </p>
+              <img
+                src="icj-building.png"
+                alt="ICJ building"
+                class="article-image sidebar"
+              />
+              <div class="body-text">
+                <p>
+                  Polymarket favours Zelenskyy at 9% and Navalnaya at 11%. The
+                  divergence is substantial: we favour institutions where the
+                  market favours individuals.
+                </p>
+              </div>
+            </article>
+
+            <article class="side-story">
+              <div class="section-label">Cabinet</div>
+              <h3 class="headline-small"><a href="https://getperspectives.app/app/debate-87c309a7-6f75-43b9-9893-e5413f5da349" class="headline-link">Attorney General: The Zeldin Gap</a></h3>
+              <p class="subhead">
+                <strong>Our estimate: Todd Blanche 17%.</strong> Polymarket:
+                Zeldin 54%.
+              </p>
+              <div class="body-text">
+                <p>
+                  Perspectives assigns Zeldin just 4%. The gap reflects
+                  different readings of Trump's selection criteria: cabinet
+                  shuffles versus loyalty elevations.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-break"><div class="diamond"></div></div>
+
+      <!-- NATURAL DISASTER + NOBEL CONTINUED -->
+      <section class="page">
+        <div class="two-column">
+          <article class="col">
+            <div class="section-label">Risk Assessment · Continued</div>
+            <h2 class="headline-major"><a href="https://getperspectives.app/app/debate-623a0d2e-d574-4793-8a49-8c8baadd50c9" class="headline-link">Natural Disaster: The 56-Point Gap</a></h2>
+
+            <div class="body-text">
+              <p>
+                Globally, the annual probability of at least one magnitude 7.5+
+                earthquake is approximately 85-90%. The question asks whether
+                2026 will see at least one major disaster causing significant
+                loss of life or exceeding $10 billion in damages, and the
+                historical record suggests this is close to a certainty rather
+                than a one-in-three outcome.
+              </p>
+
+              <p>
+                The Risk Analyst assigned 90%: "Warm Atlantic sea surface
+                temperatures, ENSO-neutral conditions favouring hurricane
+                development, and increased population exposure in hazard-prone
+                areas all point the same direction. The question is when and
+                where, not whether." The Base Rate Analyst noted that Q1 2026
+                has already seen documented disaster activity, including
+                significant flooding events, further supporting the view that
+                this year will follow historical patterns rather than break from
+                them.
+              </p>
+
+              <p>
+                The Sceptic acknowledged the strength of the consensus but
+                flagged one downside scenario: "If El Niño develops rapidly by
+                mid-summer, it could suppress Atlantic hurricane activity. That
+                doesn't eliminate earthquake risk, but it narrows one of the
+                major pathways." Even with this caveat, the Sceptic's estimate
+                remained at 90%.
+              </p>
+            </div>
+
+            <div class="what-to-watch">
+              <div class="what-to-watch-title">
+                Where the Market May Be Wrong
+              </div>
+              <p>
+                Polymarket's 30% figure is difficult to reconcile with any
+                reasonable reading of historical data. The most charitable
+                interpretation is that traders are pricing a narrower definition
+                of "major disaster" than the resolution criteria imply, or that
+                the market is simply thin and mispriced. Either way, this
+                represents one of the largest divergences in this issue, and we
+                are confident in our direction.
+              </p>
+            </div>
+          </article>
+
+          <div class="column-rule"></div>
+
+          <article class="col">
+            <div class="section-label">Nobel Prize · Continued</div>
+            <h2 class="headline-major"><a href="https://getperspectives.app/app/debate-94f8a638-335c-4011-b5f7-6ec727e9a158" class="headline-link">Nobel Peace Prize: The Full Analysis</a></h2>
+
+            <div class="body-text">
+              <p>
+                The ICJ's probability reflects its role in upholding
+                international law during a period of geopolitical fragmentation.
+                The committee has historically rewarded institutions during
+                moments of crisis, and the ICJ's high-profile cases involving
+                Ukraine, Gaza, and climate change have kept it visible. The Risk
+                Analyst noted: "Awarding the ICJ would be a statement about the
+                rules-based order. Whether the committee wants to make that
+                statement in October 2026 depends on how the next six months
+                unfold, but the institutional fit is strong."
+              </p>
+
+              <p>
+                UNRWA presents a more complicated picture. Its humanitarian work
+                in Gaza aligns with the committee's tendency to recognise
+                organisations addressing global suffering, but allegations of
+                Hamas ties and donor suspensions create political risk. The
+                Insider was bullish: "The committee has never shied away from
+                controversy when the humanitarian case is compelling. UNRWA's
+                work is exactly what the prize is meant to honour." The Sceptic
+                pushed back: "The optics of awarding UNRWA while donor nations
+                are still suspending funding would be a diplomatic grenade. The
+                committee may want to make a statement, but probably not that
+                statement."
+              </p>
+
+              <p>
+                Qatar's Emir, Tamim bin Hamad Al Thani, sits at 8% on the
+                strength of mediation efforts in Gaza, Sudan, and Ukraine
+                hostage negotiations. The Scenario Planner flagged him as the
+                strongest individual candidate: "If a durable ceasefire emerges
+                in any of these conflicts before October, his probability rises
+                substantially. Quiet diplomacy is exactly what the committee
+                likes to reward."
+              </p>
+            </div>
+
+            <div class="pull-quote">
+              <p>
+                "The 2026 cycle points toward conflict resolution and
+                institutional recognition rather than activism."
+              </p>
+              <span class="attribution">The Base Rate Analyst</span>
+            </div>
+
+            <div class="what-to-watch">
+              <div class="what-to-watch-title">Zelenskyy and Navalnaya</div>
+              <p>
+                Polymarket's favouring of Zelenskyy (9%) and Navalnaya (11%)
+                likely reflects recency and visibility rather than committee
+                behaviour. The 2025 prize went to Maria Corina Machado, a
+                democracy activist, making a thematic repetition less likely for
+                2026. The Base Rate Analyst observed that the committee tends to
+                rotate between conflict resolution, institutional recognition,
+                and activism themes, and the 2026 cycle points toward the first
+                two categories.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="section-break"><div class="diamond"></div></div>
+
+      <!-- 2028 NOMINATIONS -->
+      <section class="page">
+        <div class="section-header">2028 Presidential Nominations</div>
+
+        <div class="two-column">
+          <article class="col">
+            <div class="section-label">Democratic Primary</div>
+            <h2 class="headline-hero">
+              <a href="https://getperspectives.app/app/debate-0857d398-d5df-4568-9f33-9823bcac5164" class="headline-link">Democratic Nominee 2028: A Field Without a Favourite</a>
+            </h2>
+
+            <p class="subhead">
+              <strong
+                >Our estimate: Gavin Newsom 12%, Gretchen Whitmer 12%, Pete
+                Buttigieg 9%.</strong
+              >
+              Polymarket's distribution is more concentrated, with Newsom at
+              24%, Alexandria Ocasio-Cortez at 8%, and Jon Ossoff at 8%. The
+              most significant divergence is on Whitmer, whom Polymarket prices
+              at just 1%.
+            </p>
+
+            <img
+              src="democrats-2028.png"
+              alt="Democratic 2028 campaign imagery"
+              class="article-image"
+            />
+
+            <div class="body-text">
+              <p>
+                The Whitmer gap is difficult to explain. She is term-limited in
+                2026, giving her the freedom to campaign full-time. Michigan is
+                a critical swing state. Her executive record is strong, and she
+                has avoided the "coastal liberal" label that complicates
+                Newsom's national appeal. The Systems Thinker put it directly:
+                "Whitmer has structural advantages that the market is ignoring.
+                Term-limited governors with swing-state credentials are exactly
+                what primary voters historically favour." The Insider noted that
+                Whitmer has been cautious about 2028 positioning, which may
+                explain her low market price, but added: "Caution now doesn't
+                mean absence later. She's building relationships rather than
+                headlines."
+              </p>
+
+              <p>
+                Josh Shapiro sits at 8%, reflecting Pennsylvania's importance
+                and his strong fundraising network. The Scenario Planner was
+                more bullish on Shapiro than the consensus: "If Whitmer doesn't
+                run, Shapiro becomes the swing-state standard-bearer. His
+                ceiling is higher than his current price suggests." Andy Beshear
+                rounds out the top tier at 5%, his red-state Democratic
+                credentials compelling but his national profile limited.
+              </p>
+            </div>
+
+            <div class="what-to-watch">
+              <div class="what-to-watch-title">Kamala Harris</div>
+              <p>
+                Harris at 4% reflects the historical difficulty of losing
+                nominees returning to win the nomination. The Base Rate Analyst
+                was direct: "Since 1972, no losing Democratic nominee has won
+                the subsequent primary. Harris has the donor network and name
+                recognition, but the structural barriers are significant." The
+                Contrarian pushed back slightly: "The field is unusually
+                fragmented. If major candidates stumble, Harris could
+                consolidate establishment support by default."
+              </p>
+            </div>
+          </article>
+
+          <div class="column-rule"></div>
+
+          <article class="col">
+            <div class="section-label">Republican Primary</div>
+            <h2 class="headline-hero">
+              <a href="https://getperspectives.app/app/debate-8c4c1d95-fd65-4300-bf16-27f31fe192f8" class="headline-link">Republican Nominee 2028: Vance and the Alternatives</a>
+            </h2>
+
+            <p class="subhead">
+              <strong
+                >Our estimate: J.D. Vance 34%, Ron DeSantis 11%, Nikki Haley
+                5%.</strong
+              >
+              Polymarket agrees on Vance as the favourite at 37%, but diverges
+              sharply on the alternatives: Marco Rubio sits at 20% on Polymarket
+              versus our 4%, while DeSantis is at 3% there versus our 11%.
+            </p>
+
+            <img
+              src="republicans-2028.png"
+              alt="Republican 2028 campaign imagery"
+              class="article-image"
+            />
+
+            <div class="body-text">
+              <p>
+                Vance's advantage stems from vice-presidential incumbency,
+                Trump's implicit endorsement, and the historical pattern of
+                sitting VPs securing their party's nomination when they seek it.
+                The Insider was direct: "Vance has the infrastructure, the
+                access, and the blessing. The question is whether anything
+                disrupts that between now and 2028." The Systems Thinker noted
+                that the MAGA coalition has no obvious alternative champion:
+                "The field is fragmented below Vance. DeSantis, Haley, and Rubio
+                all occupy different lanes, and none has consolidated support."
+              </p>
+
+              <p>
+                The divergence on Rubio is significant. Polymarket's 20% likely
+                reflects his current role as Secretary of State and recent
+                visibility, but we see structural barriers to his candidacy. The
+                Sceptic observed: "Rubio has run before and lost. His path to
+                the nomination requires Vance to stumble badly, and even then,
+                he'd need to outcompete DeSantis for the MAGA-adjacent vote.
+                That's a narrow path."
+              </p>
+
+              <p>
+                DeSantis at 11% reflects the possibility of a Vance collapse or
+                Trump withdrawal of support. The 2024 primary wounded him, but
+                governors with executive records and the time to rebuild have
+                recovered before. The Scenario Planner was cautious but not
+                dismissive: "DeSantis needs two things: a Vance stumble and a
+                successful rebranding. Neither is impossible, but both are
+                required."
+              </p>
+            </div>
+
+            <div class="what-to-watch">
+              <div class="what-to-watch-title">The Trump Variable</div>
+              <p>
+                The wildcard remains Trump himself. His post-presidency
+                behaviour, including who he endorses and when, will shape the
+                field dramatically. If Trump remains engaged and supportive of
+                Vance, the race is Vance's to lose. If Trump distances himself
+                or creates chaos, the alternatives become relevant.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="section-break"><div class="diamond"></div></div>
+
+      <!-- ATTORNEY GENERAL + ALIENS -->
+      <section class="page">
+        <div class="two-column">
+          <article class="col">
+            <div class="section-label">Cabinet · Continued</div>
+            <h2 class="headline-major"><a href="https://getperspectives.app/app/debate-87c309a7-6f75-43b9-9893-e5413f5da349" class="headline-link">Attorney General: The Full Analysis</a></h2>
+
+            <div class="big-number">
+              <div class="big-number-value">−50</div>
+              <div class="big-number-label">Point Gap on Zeldin</div>
+              <div class="big-number-context">
+                Polymarket 54% vs Perspectives 4%
+              </div>
+            </div>
+
+            <div class="body-text">
+              <p>
+                The Insider was direct: "Zeldin is currently running the EPA.
+                Moving him to Justice isn't impossible, but it's a lateral
+                shuffle rather than a reward. Trump tends to elevate loyalists
+                into new roles rather than moving them around the cabinet."
+                Blanche's position as Trump's personal defence attorney, with
+                proven loyalty through multiple legal battles, fits the pattern
+                more cleanly.
+              </p>
+
+              <p>
+                Jeff Clark and Ken Paxton at 12% each represent the aggressive
+                loyalty candidates. Clark's willingness to act on Trump's
+                election challenges in 2021 demonstrated commitment under
+                pressure, though his confirmation would face resistance.
+                Paxton's legal baggage, including impeachment and ongoing
+                indictments, raises similar confirmability questions. The Risk
+                Analyst flagged the structural barrier: "Trump learned from the
+                Gaetz withdrawal that the Senate still matters. He'll pick
+                someone who can get through, even if he'd prefer someone more
+                aggressive."
+              </p>
+            </div>
+
+            <div class="what-to-watch">
+              <div class="what-to-watch-title">The Selection Logic</div>
+              <p>
+                Mike Lee at 12% represents the confirmable alternative: a
+                senator with legal credentials, conservative bona fides, and no
+                confirmation obstacles. The Scenario Planner observed: "If
+                Bondi's departure is routine rather than a loyalty purge, Lee
+                becomes more likely. If it's a firing, Blanche or Clark become
+                more likely." The reason for the vacancy, which remains unclear,
+                will shape the selection significantly.
+              </p>
+            </div>
+          </article>
+
+          <div class="column-rule"></div>
+
+          <article class="col">
+            <div class="section-label">Novelty · Continued</div>
+            <h2 class="headline-major"><a href="https://getperspectives.app/app/debate-14250971-9dce-4eaf-8fe1-d24a753a30c0" class="headline-link">Aliens: The Forever Question</a></h2>
+
+            <img
+              src="observatory.png"
+              alt="Night sky observatory"
+              class="article-image"
+            />
+
+            <div class="body-text">
+              <p>
+                The gap reflects different weightings of institutional inertia
+                versus tail-risk scenarios. The government has maintained
+                ambiguity on UAPs for eight decades, and the system is designed
+                to escalate slowly toward transparency without ever reaching
+                definitive confirmation. The Systems Thinker was blunt:
+                "Confirmation would require irrefutable physical evidence
+                reaching public awareness through channels the government cannot
+                control. The probability of that happening in nine months is
+                very low."
+              </p>
+
+              <p>
+                AARO reports have consistently acknowledged anomalous phenomena
+                while explicitly disclaiming extraterrestrial origins.
+                Congressional hearings have produced testimony but not evidence.
+                The Base Rate Analyst noted: "The Overton window has shifted.
+                The government now discusses UAPs openly rather than denying
+                their existence. But acknowledging 'anomalies' and confirming
+                'aliens' are separated by an evidentiary chasm that current
+                processes won't cross."
+              </p>
+
+              <p>
+                The Contrarian assigned 35% to a tail scenario: "A foreign
+                government disclosure, a mass public sighting, or a
+                whistleblower with verifiable physical evidence could force
+                confirmation despite institutional resistance. Those events are
+                unlikely, but they're not impossible." The Risk Analyst was
+                unmoved: "Even in those scenarios, the government's first
+                instinct is to study, classify, and delay rather than confirm.
+                The bureaucratic response to extraordinary claims is not
+                extraordinary confirmation."
+              </p>
+            </div>
+
+            <div class="what-to-watch">
+              <div class="what-to-watch-title">The Structural Barrier</div>
+              <p>
+                Confirmation would require scientific consensus, interagency
+                alignment, public messaging preparation, and political
+                willingness to accept the consequences of that announcement. The
+                Insider observed: "None of those preconditions are in motion. No
+                unusual personnel movements, no policy shifts, no leaks
+                suggesting imminent disclosure. The absence of observable
+                preparation is itself evidence."
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="section-break"><div class="diamond"></div></div>
+
+      <!-- SPORTS SECTION -->
+      <section class="page">
+        <div class="sports-header">
+          <span class="sports-header-title">Sports</span>
+          <div class="sports-header-line"></div>
+        </div>
+
+        <div class="two-column">
+          <article class="col">
+            <div class="section-label">NBA</div>
+            <h2 class="headline-hero">
+              <a href="https://getperspectives.app/app/debate-9f52e952-9fb9-4ec2-83bf-dd56cd708df1" class="headline-link">NBA Championship: Thunder and the Spurs Question</a>
+            </h2>
+
+            <p class="subhead">
+              <strong
+                >Our estimate: Oklahoma City Thunder 26%, Boston Celtics 18%,
+                Cleveland Cavaliers 13%.</strong
+              >
+              Polymarket's distribution differs meaningfully: Oklahoma City at
+              39%, San Antonio Spurs at 18%, Boston at 12%. The Spurs divergence
+              is the headline.
+            </p>
+
+            <img
+              src="distribution-nba.png"
+              alt="NBA championship probability distribution"
+              class="article-image"
+              style="width: 50%; margin-left: auto; margin-right: auto"
+            />
+
+            <div class="body-text">
+              <p>
+                The Thunder's position as favourite is uncontroversial. Shai
+                Gilgeous-Alexander is playing at an MVP level, the roster
+                construction emphasises defensive flexibility, and the
+                organisation has spent years building toward this moment. The
+                Systems Thinker noted: "OKC's depth is their differentiator.
+                Injuries that would derail most contenders are absorbed by their
+                system." We assign them lower probability than Polymarket
+                primarily because of playoff variance: a seven-game series
+                against a hot opponent can eliminate anyone.
+              </p>
+
+              <p>
+                The Spurs at 18% on Polymarket versus our 3% represents a
+                fundamental disagreement about Victor Wembanyama's timeline. The
+                Contrarian was the only analyst to assign meaningful probability
+                to San Antonio, at 15%: "Wembanyama is a generational talent,
+                and generational talents sometimes arrive ahead of schedule. If
+                the Spurs catch fire in April and May, they have the ceiling to
+                beat anyone." The Risk Analyst was dismissive: "Wembanyama's
+                brilliance is real, but the roster around him isn't ready. This
+                is a 2027 or 2028 story, not a 2026 one."
+              </p>
+
+              <p>
+                Boston at 18% reflects championship pedigree and the
+                institutional knowledge that comes with defending a title. The
+                Insider flagged the risk: "Championship hangovers are real.
+                Boston's defensive identity has slipped this season, and Tatum's
+                injury history is a concern." Cleveland at 13% represents the
+                strongest alternative in the East, with Donovan Mitchell in a
+                contract year and Evan Mobley's defensive presence.
+              </p>
+            </div>
+
+            <div class="what-to-watch">
+              <div class="what-to-watch-title">The Path Forward</div>
+              <p>
+                OKC's health through April will determine whether their
+                favourite status holds. Any significant injury to
+                Gilgeous-Alexander or their core rotation pieces would
+                redistribute probability substantially toward Boston and
+                Cleveland.
+              </p>
+            </div>
+          </article>
+
+          <div class="column-rule"></div>
+
+          <article class="col">
+            <div class="section-label">Formula 1</div>
+            <h2 class="headline-hero">
+              <a href="https://getperspectives.app/app/debate-854241a9-4ef3-4704-ae90-9919fb1b2381" class="headline-link">F1 Drivers' Championship: Regulation Reset Chaos</a>
+            </h2>
+
+            <p class="subhead">
+              <strong
+                >Our estimate: Max Verstappen 24%, Lando Norris 19%, Charles
+                Leclerc 11%.</strong
+              >
+              Polymarket tells a completely different story: George Russell at
+              44%, Kimi Antonelli at 31%, Charles Leclerc at 7%. The divergence
+              is among the largest in this issue.
+            </p>
+
+            <div class="pull-quote">
+              <p>
+                "We're three races into a regulation cycle. Mercedes has started
+                strong before and faded. The market is extrapolating
+                early-season form as if it were a settled outcome."
+              </p>
+              <span class="attribution">The Trend Analyst</span>
+            </div>
+
+            <div class="body-text">
+              <p>
+                Polymarket's pricing implies that Mercedes has comprehensively
+                solved the new regulations, to the point where their two drivers
+                account for 75% of championship probability. The Trend Analyst
+                was sceptical: "We're three races into a regulation cycle.
+                Mercedes has started strong before and faded. The market is
+                extrapolating early-season form as if it were a settled
+                outcome." Verstappen's 24% reflects elite driver talent and Red
+                Bull's historical adaptability to rule changes, though their new
+                power unit partnership with Ford introduces genuine uncertainty.
+              </p>
+
+              <p>
+                McLaren's momentum from 2024-2025 supports Norris at 19%. The
+                Systems Thinker observed: "McLaren's technical efficiency under
+                Andrea Stella has been remarkable. They may not have the fastest
+                car on day one, but their development trajectory suggests
+                they'll be competitive by mid-season." Leclerc at 11% reflects
+                Ferrari's resources and his raw pace, though Ferrari's history
+                of strategic errors in championship fights tempers enthusiasm.
+              </p>
+            </div>
+
+            <div class="what-to-watch">
+              <div class="what-to-watch-title">The Regulation Question</div>
+              <p>
+                The 2026 rules represent the most significant technical reset in
+                a decade: new power unit regulations, active aerodynamics, and
+                reduced downforce. Historical precedent suggests that
+                early-season leaders often fade as teams learn the new formula.
+                The Base Rate Analyst put it directly: "Regulation resets
+                produce surprises. The probability distribution should be wider
+                than Polymarket is pricing, not narrower."
+              </p>
+            </div>
+
+            <div class="body-text">
+              <p>
+                The Insider offered a different perspective: "Mercedes has made
+                strategic sacrifices over the past two seasons specifically to
+                win 2026. Their engine expertise and resource allocation have
+                been pointed at this moment. Russell's price may be aggressive,
+                but it reflects real investment."
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- DIVERGENCE INFOGRAPHIC -->
+      <section class="divergence-section">
+        <h2 class="divergence-title">WHERE WE DIVERGE FROM THE MARKET</h2>
+        <p class="divergence-subtitle">
+          The largest gaps between Perspectives estimates and Polymarket prices
+        </p>
+
+        <div class="divergence-list">
+          <div class="divergence-row header">
+            <span>Question</span>
+            <span style="text-align: center">Perspectives</span>
+            <span style="text-align: center">Polymarket</span>
+            <span style="text-align: right">Gap</span>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">Natural Disaster 2026</div>
+            <div class="divergence-perspectives">86%</div>
+            <div class="divergence-polymarket">30%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap large">+56</span>
+            </div>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">Attorney General: Lee Zeldin</div>
+            <div class="divergence-perspectives">4%</div>
+            <div class="divergence-polymarket">54%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap large">−50</span>
+            </div>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">F1: George Russell</div>
+            <div class="divergence-perspectives">10%</div>
+            <div class="divergence-polymarket">44%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap negative">−34</span>
+            </div>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">F1: Kimi Antonelli</div>
+            <div class="divergence-perspectives">4%</div>
+            <div class="divergence-polymarket">31%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap negative">−27</span>
+            </div>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">F1: Max Verstappen</div>
+            <div class="divergence-perspectives">24%</div>
+            <div class="divergence-polymarket">2%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap positive">+22</span>
+            </div>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">NBA: San Antonio Spurs</div>
+            <div class="divergence-perspectives">3%</div>
+            <div class="divergence-polymarket">18%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap negative">−15</span>
+            </div>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">Nobel: ICJ</div>
+            <div class="divergence-perspectives">16%</div>
+            <div class="divergence-polymarket">4%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap positive">+12</span>
+            </div>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">Aliens by December</div>
+            <div class="divergence-perspectives">6%</div>
+            <div class="divergence-polymarket">18%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap negative">−12</span>
+            </div>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">Dem 2028: Gretchen Whitmer</div>
+            <div class="divergence-perspectives">12%</div>
+            <div class="divergence-polymarket">1%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap positive">+11</span>
+            </div>
+          </div>
+
+          <div class="divergence-row">
+            <div class="divergence-question">
+              Attorney General: Todd Blanche
+            </div>
+            <div class="divergence-perspectives">17%</div>
+            <div class="divergence-polymarket">26%</div>
+            <div class="divergence-gap-cell">
+              <span class="divergence-gap negative">−9</span>
+            </div>
+          </div>
+        </div>
+
+        <p
+          style="
+            text-align: center;
+            margin-top: 35px;
+            font-family: &quot;Source Serif 4&quot;, serif;
+            font-style: italic;
+            color: var(--gray-light);
+            font-size: 0.9rem;
+          "
+        >
+          The largest divergences cluster around regulation reset uncertainty in
+          F1, where Polymarket appears to have priced early-season form as a
+          final verdict, and the Attorney General selection, where Polymarket
+          favours a cabinet shuffle we consider unlikely. The natural disaster
+          gap reflects what we believe is a fundamental mispricing of historical
+          base rates.
+        </p>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="footer-logo">
+          PERSPECTIVES<span class="underscore">_</span>
+        </div>
+        <p class="footer-text">
+          The Signal is published by Perspectives. Probabilities reflect
+          aggregate estimates from eight analyst personas debating each
+          question. Polymarket data sourced April 5th, 2026. Prices move in real
+          time and may differ from figures shown. This is not financial advice.
+          <br /><br />
+          <a href="https://getperspectives.app">getperspectives.app</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
