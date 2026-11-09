@@ -10,6 +10,7 @@
   }
   function label(i) {
     var d = new Date(i.date + "T12:00:00Z");
+    if (!i.date || isNaN(d)) return "Issue " + String(i.number).padStart(3, "0");
     return "Issue " + String(i.number).padStart(3, "0") + " — " + ordinal(d.getUTCDate()) + " " +
       d.toLocaleString("en-GB", { month: "long", timeZone: "UTC" }) + " " + d.getUTCFullYear();
   }
@@ -35,6 +36,27 @@
 
   fetch("../issues.json", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (data) {
+      // Fallback for when issues.json is stale: probe for issues newer than the
+      // last one listed and read their masthead date straight from the page.
+      var next = Math.max.apply(null, data.issues.map(function (i) { return i.number; })) + 1;
+      var dateRe = /(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day\s+(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/;
+      function probe() {
+        var path = "issue-" + next;
+        return fetch("../" + path + "/", { cache: "no-cache" }).then(function (r) {
+          if (!r.ok) return data;
+          return r.text().then(function (html) {
+            var d = html.match(dateRe);
+            var t = d && new Date(d[1] + " " + d[2] + " " + d[3] + " 12:00 UTC");
+            data.issues.unshift({ number: next, path: path,
+              date: t && !isNaN(t) ? t.toISOString().slice(0, 10) : "" });
+            next++;
+            return probe();
+          });
+        }).catch(function () { return data; });
+      }
+      return probe();
+    })
     .then(function (data) {
       var sel = ensureSelect();
       if (!sel) return;
