@@ -1,0 +1,19 @@
+{
+  "issues": [
+    {
+      "number": 3,
+      "path": "issue-3",
+      "date": "2026-11-01"
+    },
+    {
+      "number": 2,
+      "path": "issue-2",
+      "date": "2026-04-05"
+    },
+    {
+      "number": 1,
+      "path": "issue-1",
+      "date": "2026-04-02"
+    }
+  ]
+}

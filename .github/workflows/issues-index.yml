@@ -1,0 +1,22 @@
+name: Update issue index
+on:
+  push:
+    branches: [main]
+    paths: ["issue-*/index.html", "scripts/build_issues.py"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/build_issues.py
+      - name: Commit if changed
+        run: |
+          git diff --quiet issues.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add issues.json
+          git commit -m "Update issue index"
+          git push
