@@ -4,6 +4,9 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>The Signal · Issue 001</title>
+        <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+        <link rel="icon" type="image/png" href="../favicon.png" />
+        <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -1833,5 +1836,120 @@
                 </p>
             </footer>
         </div>
-    </body>
+        <script>
+            // Reading-progress favicon: the red underscore in the S_ mark fills
+            // as you scroll through the issue, and its cursor blinks in a
+            // background tab. Browsers that ignore dynamic icons keep favicon.svg.
+            (function () {
+                var canvas = document.createElement("canvas");
+                canvas.width = canvas.height = 64;
+                var ctx = canvas.getContext && canvas.getContext("2d");
+                if (!ctx || typeof Path2D === "undefined") return;
+                var glyph = new Path2D("M1481 987Q1442 1006 1378 1030Q1314 1054 1233 1075.5Q1152 1097 1057 1111.5Q962 1126 862 1126Q782 1126 725.5 1121Q669 1116 630.5 1108Q592 1100 569.5 1089.5Q547 1079 535 1068Q523 1057 519.5 1046Q516 1035 516 1026Q516 996 546 973.5Q576 951 628 933.5Q680 916 749 900.5Q818 885 895.5 868.5Q973 852 1055.5 832.5Q1138 813 1215.5 787Q1293 761 1362 726.5Q1431 692 1483 646Q1535 600 1565 540Q1595 480 1595 403Q1595 304 1560 233Q1525 162 1466.5 113Q1408 64 1331 34.5Q1254 5 1169.5 -11Q1085 -27 998.5 -32Q912 -37 834 -37Q630 -37 456.5 -3.5Q283 30 150 80V408Q287 332 462.5 289Q638 246 838 246Q956 246 1030.5 258.5Q1105 271 1147 290.5Q1189 310 1204 333Q1219 356 1219 377Q1219 410 1189 434.5Q1159 459 1107 477.5Q1055 496 986 511.5Q917 527 839.5 542.5Q762 558 680 576Q598 594 520.5 618.5Q443 643 374 675.5Q305 708 253 752.5Q201 797 171 855.5Q141 914 141 991Q141 1082 173 1148Q205 1214 259.5 1260.5Q314 1307 385.5 1336Q457 1365 536 1381Q615 1397 696 1403Q777 1409 850 1409Q930 1409 1014.5 1401Q1099 1393 1181 1378.5Q1263 1364 1339.5 1345Q1416 1326 1481 1305Z");
+                var BAR = { x: 28, y: 44, w: 24, h: 8 };
+                var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+                var link = document.createElement("link");
+                link.rel = "icon";
+                link.type = "image/png";
+                document.querySelectorAll('link[rel~="icon"]').forEach(function (el) { el.remove(); });
+                document.head.appendChild(link);
+
+                var filled = -1, cursorOn = true, flashOff = false, finished = false;
+                var blinkTimer = null, flashesLeft = 0, blinkStopAt = 0, lastHref = "";
+
+                function draw() {
+                    ctx.fillStyle = "#f8f7f4";
+                    ctx.fillRect(0, 0, 64, 64);
+                    ctx.save();
+                    ctx.translate(10.941, 43);
+                    ctx.scale(0.021834, -0.021834);
+                    ctx.fillStyle = "#0d0d0d";
+                    ctx.fill(glyph);
+                    ctx.restore();
+                    if (finished) {
+                        if (!flashOff) {
+                            ctx.fillStyle = "#ff3333";
+                            ctx.fillRect(BAR.x, BAR.y, BAR.w, BAR.h);
+                        }
+                    } else {
+                        ctx.fillStyle = "#dcd8d0";
+                        ctx.fillRect(BAR.x, BAR.y, BAR.w, BAR.h);
+                        ctx.fillStyle = "#ff3333";
+                        ctx.fillRect(BAR.x, BAR.y, filled, BAR.h);
+                        if (cursorOn) {
+                            ctx.fillStyle = "#0d0d0d";
+                            ctx.fillRect(BAR.x + Math.max(0, filled - 4), BAR.y, 4, BAR.h);
+                        }
+                    }
+                    var href = canvas.toDataURL("image/png");
+                    if (href !== lastHref) link.href = lastHref = href;
+                }
+
+                function stopBlink() {
+                    clearInterval(blinkTimer);
+                    blinkTimer = null;
+                    cursorOn = true;
+                    flashOff = false;
+                }
+
+                function tick() {
+                    if (flashesLeft > 0) {
+                        flashOff = !flashOff;
+                        if (--flashesLeft === 0) stopBlink();
+                    } else if (document.visibilityState === "hidden" && !finished && Date.now() < blinkStopAt) {
+                        cursorOn = !cursorOn;
+                    } else {
+                        stopBlink();
+                    }
+                    draw();
+                }
+
+                function startBlink() {
+                    if (!blinkTimer && !reduceMotion) blinkTimer = setInterval(tick, 650);
+                }
+
+                function measure() {
+                    var doc = document.documentElement;
+                    var max = doc.scrollHeight - window.innerHeight;
+                    var progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 1;
+                    // Two-unit steps keep the fill edge on whole pixels at 16px and 32px.
+                    var next = Math.round((progress * BAR.w) / 2) * 2;
+                    var justFinished = !finished && progress > 0.985;
+                    if (next === filled && !justFinished) return;
+                    filled = next;
+                    if (justFinished) {
+                        finished = true;
+                        stopBlink();
+                        flashesLeft = 6;
+                        startBlink();
+                    }
+                    draw();
+                }
+
+                var queued = false;
+                window.addEventListener("scroll", function () {
+                    if (queued) return;
+                    queued = true;
+                    requestAnimationFrame(function () { queued = false; measure(); });
+                }, { passive: true });
+                window.addEventListener("resize", measure);
+                window.addEventListener("load", measure);
+
+                // A blinking cursor in the tab strip while the reader is elsewhere,
+                // waiting where they left off. It settles after a minute.
+                document.addEventListener("visibilitychange", function () {
+                    if (document.visibilityState === "hidden" && !finished) {
+                        blinkStopAt = Date.now() + 60000;
+                        startBlink();
+                    } else if (!flashesLeft) {
+                        stopBlink();
+                        draw();
+                    }
+                });
+
+                measure();
+            })();
+        </script>
+</body>
 </html>
